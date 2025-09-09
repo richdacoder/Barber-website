@@ -1,0 +1,15 @@
+{
+  "name": "new-luxuryfresh",
+  "version": "1.0.0",
+  "description": "Welcome to **Luxury Fresh**, the modern barber booking website that keeps you looking sharp 💎. Clients can easily schedule appointments online, while the barber manages availability through a simple **Admin Panel**.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
