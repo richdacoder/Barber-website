@@ -1,6 +1,6 @@
-const getStudents = (request, response) => {
+const getUsers = (request, response) => {
     var responseReturn = new ResponseClass();
-    pool.query('SELECT * FROM students ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }
