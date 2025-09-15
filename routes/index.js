@@ -3,6 +3,10 @@ const db = require('../queries');
 const express = require("express");
 const bodyParser = require("body-parser");
 
+let ejs = require('ejs');
+let people = ['geddy', 'neil', 'alex'];
+let html = ejs.render('<%= people.join(", "); %>', {people: people});
+
 const app = express();
 const port = 3000;
 const db = require('./queries');
