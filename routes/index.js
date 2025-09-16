@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 let ejs = require('ejs');
 let people = ['geddy', 'neil', 'alex'];
 let html = ejs.render('<%= people.join(", "); %>', {people: people});
-
+html
 const app = express();
 const port = 3000;
 const db = require('./queries');
@@ -27,8 +27,8 @@ app.get("/", (request, response) => {
         info: 'Hello world!'
     });
 })
-app.get("/students", db.getStudents);
-app.get("/students/:id", db.getStudentById);
-app.put("/students/:id", db.updateStudent);
-app.post("/students", db.createStudent);
-app.delete("/students/:id", db.deleteStudent);
+app.get("/users", db.getusers);
+app.get("/users/:id", db.getUserById);
+app.put("/users/:id", db.updateUser);
+app.post("/users", db.createUser);
+app.delete("/users/:id", db.deleteUser);
