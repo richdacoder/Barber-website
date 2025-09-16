@@ -1,1 +1,5 @@
-ejs ./template_file.ejs -f data_file.json -o ./output.html
+<script src="ejs.js"></script>
+<script>
+  let people = ['geddy', 'neil', 'alex'];
+  let html = ejs.render('<%= people.join(", "); %>', {people: people});
+</script>
