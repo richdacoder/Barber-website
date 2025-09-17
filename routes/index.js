@@ -23,7 +23,7 @@ app.listen(port, () => {
 });
 
 app.get("/", (request, response) => {
-    response.json({
+    render.json({
         info: 'Hello world!'
     });
 })
