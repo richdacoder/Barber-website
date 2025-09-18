@@ -14,7 +14,7 @@ app.use(
 )
 
 app.get("/", (req, res) => {
-
+res.render("views/index")
 })
 
 app.listen(port, () => {
