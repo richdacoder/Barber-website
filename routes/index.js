@@ -13,15 +13,16 @@ app.use(
     })
 )
 
-app.listen(port, () => {
-    console.log("Server is running on " + port);
-});
-
 app.get("/", (request, response) => {
     render.json({
         info: 'Hello world!'
     });
 })
+
+app.listen(port, () => {
+    console.log("Server is running on " + port);
+});
+
 app.get("/users", db.getusers);
 app.get("/users/:id", db.getUserById);
 app.put("/users/:id", db.updateUser);
