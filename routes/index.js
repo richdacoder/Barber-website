@@ -13,10 +13,8 @@ app.use(
     })
 )
 
-app.get("/", (request, response) => {
-    render.json({
-        info: 'Hello world!'
-    });
+app.get("/", (req, res) => {
+
 })
 
 app.listen(port, () => {
