@@ -1,7 +1,7 @@
 
 
 
--- Users / Clients Table
+-- Clients Table
 CREATE TABLE clients (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,

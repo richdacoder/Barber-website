@@ -1,6 +1,6 @@
 const getUsers = (request, response) => {
     var responseReturn = new ResponseClass();
-    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM clients ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }

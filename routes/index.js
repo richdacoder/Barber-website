@@ -32,7 +32,7 @@ app.listen(port, () => {
     console.log("Server is running on " + port);
 });
 
-app.get("/clients/:id", db.getUserById);
-app.put("/clients/:id", db.updateUser);
-app.post("/clients", db.createUser);
-app.delete("/clients/:id", db.deleteUser);
+app.get("/clients/:id", db.getClientsById);
+app.put("/clients/:id", db.updateClient);
+app.post("/clients", db.createClient);
+app.delete("/clients/:id", db.deleteClient);
