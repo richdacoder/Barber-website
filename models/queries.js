@@ -1,4 +1,4 @@
-const getUsers = (request, response) => {
+const getClients = (request, response) => {
     var responseReturn = new ResponseClass();
     pool.query('SELECT * FROM clients ORDER BY id ASC', (error, results) => {
         if (error) {
