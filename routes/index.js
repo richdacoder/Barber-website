@@ -5,6 +5,8 @@ let ejs = require('ejs');
 const app = express();
 const port = 3000;
 const db = require('./queries');
+app.set("views", "./views");       // folder for templates
+app.set("view engine", "ejs");     // use EJS as default
 
 app.use(bodyParser.json());
 app.use(
@@ -13,8 +15,8 @@ app.use(
     })
 )
 
-app.get("/", (req, res) => {
-res.render("views/index")
+app.get("/users", (req, res) => {
+res.render("index")
 })
 
 app.listen(port, () => {
