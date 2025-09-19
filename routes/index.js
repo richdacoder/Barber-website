@@ -1,7 +1,7 @@
 // routes/index.js
 const express = require("express");
 const router = express.Router();
-const db = require("../queries"); // your database queries
+const db = require("../models/queries"); // your database queries
 
 // GET /clients
 router.get("/clients", (req, res) => {
