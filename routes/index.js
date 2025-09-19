@@ -1,38 +1,38 @@
-const db = require('../queries');
+// routes/index.js
 const express = require("express");
-const bodyParser = require("body-parser");
-let ejs = require('ejs');
-const app = express();
-const port = 3000;
-app.set("views", "./views");       // folder for templates
-app.set("view engine", "ejs");     // use EJS as default
+const router = express.Router();
+const db = require("../queries"); // your database queries
 
-app.use(bodyParser.json());
-app.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-)
+// GET /clients
+router.get("/clients", (req, res) => {
+  console.log("GET /clients called");
 
-app.get("/clients", (req, res) => {
-    console.log("GET /clients called");
+  db.getclients((err, clients) => {
+    if (err) {
+      console.error("DB error:", err);
+      return res.status(500).send("Database error");
+    }
 
-    db.getclients((err, clients) => {
-        if (err) {
-            console.error("DB error:", err);
-            return res.status(500).send("Database error");
-        }
-
-        console.log("clients from DB:", clients);
-        res.render("index", { clients }); // pass clients to your template
-    });
+    console.log("clients from DB:", clients);
+    res.render("index", { clients }); // pass clients to your template
+  });
 });
 
-app.listen(port, () => {
-    console.log("Server is running on " + port);
+// GET /clients/:id
+router.get("/clients/:id", (req, res) => {
+  const id = req.params.id;
+  db.getClientsById(id, (err, client) => {
+    if (err) {
+      console.error("DB error:", err);
+      return res.status(500).send("Database error");
+    }
+
+    if (!client) {
+      return res.status(404).send("Client not found");
+    }
+
+    res.render("clientDetail", { client }); // pass single client to template
+  });
 });
 
-app.get("/clients/:id", db.getClientsById);
-app.put("/clients/:id", db.updateClient);
-app.post("/clients", db.createClient);
-app.delete("/clients/:id", db.deleteClient);
+module.exports = router;
