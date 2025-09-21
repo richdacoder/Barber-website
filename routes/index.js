@@ -1,9 +1,7 @@
-// routes/index.js
 const express = require("express");
 const router = express.Router();
-const db = require("../models/queries"); // your database queries
+const db = require("../models/queries");
 
-// GET /clients
 router.get("/clients", (req, res) => {
   console.log("GET /clients called");
 
@@ -14,11 +12,11 @@ router.get("/clients", (req, res) => {
     }
 
     console.log("clients from DB:", clients);
-    res.render("index", { clients }); // pass clients to your template
+    res.render("index", { clients });
   });
 });
 
-// GET /clients/:id
+
 router.get("/clients/:id", (req, res) => {
   const id = req.params.id;
   db.getClientsById(id, (err, client) => {
@@ -31,7 +29,7 @@ router.get("/clients/:id", (req, res) => {
       return res.status(404).send("Client not found");
     }
 
-    res.render("clientDetail", { client }); // pass single client to template
+    res.render("clientDetail", { client });
   });
 });
 
