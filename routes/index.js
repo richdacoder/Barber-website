@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models/queries");
 
+router.get( "/", (req,res) => {
+res.send("Luxury Fresh 💈")
+}
+
+)
+
 router.get("/clients", (req, res) => {
   console.log("GET /clients called");
 
