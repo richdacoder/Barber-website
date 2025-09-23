@@ -1,25 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/queries");
+console.log('index.js is running');
 
 router.get( "/", (req,res) => {
-res.send("Luxury Fresh 💈")
+//res.send("Luxury Fresh 💈")
+res.render("index");
 }
-
 )
+
+console.log(db)
 
 router.get("/clients", (req, res) => {
   console.log("GET /clients called");
+  res.send("/clients")
+  // db.getclients((err, clients) => {
+  //   if (err) {
+  //     console.log("DB error:", err);
+  //     return res.status(500).send("Database error");
+  //   }
 
-  db.getclients((err, clients) => {
-    if (err) {
-      console.error("DB error:", err);
-      return res.status(500).send("Database error");
-    }
-
-    console.log("clients from DB:", clients);
-    res.render("index", { clients });
-  });
+  //   console.log("clients from DB:", clients);
+  //   res.render("index", { clients });
+  //   res.send("/clients")
+  // });
 });
 
 

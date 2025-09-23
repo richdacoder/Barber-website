@@ -1,3 +1,5 @@
+const pool = require("../project-root/db-connection`");
+console.log(pool);
 const getClients = (request, response) => {
     var responseReturn = new ResponseClass();
     pool.query('SELECT * FROM clients ORDER BY id ASC', (error, results) => {
