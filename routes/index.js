@@ -12,7 +12,11 @@ console.log(db)
 
 router.get("/clients", (req, res) => {
   console.log("GET /clients called");
-  res.send("/clients")
+  if (err) {
+      console.log("DB error:", err);
+      return res.status(500).send("Database error");
+    }
+  res.render("index")
   // db.getclients((err, clients) => {
   //   if (err) {
   //     console.log("DB error:", err);
