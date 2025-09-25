@@ -1,3 +1,4 @@
+console.log('working')
 const pool = require("../project-root/db-connection`");
 console.log(pool);
 const getClients = (request, response) => {
