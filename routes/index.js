@@ -4,7 +4,6 @@ const db = require("../models/queries");
 console.log('index.js is running');
 
 router.get( "/", (req,res) => {
-//res.send("Luxury Fresh 💈")
 res.render("index");
 }
 )
