@@ -1,5 +1,4 @@
-import pkg from "pg";
-const { Pool } = pkg;
+const { Pool } = require("pg");
 
 // Create a PostgreSQL connection pool using environment variables
 const pool = new Pool({
