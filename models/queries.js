@@ -1,5 +1,5 @@
 console.log('working')
-const pool = require("../project-root/db-connection`");
+const pool = require("../db/db-connection");
 console.log(pool);
 const getClients = (request, response) => {
     var responseReturn = new ResponseClass();
