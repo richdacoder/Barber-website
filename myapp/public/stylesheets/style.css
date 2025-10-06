@@ -18,6 +18,9 @@
   font-size: 1rem;
   width:100%;
 }
+.list{
+  display: none;
+}
 .main-container {
   width:100%;
   border: black solid;
