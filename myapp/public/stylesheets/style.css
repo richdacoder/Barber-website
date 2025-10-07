@@ -35,6 +35,12 @@
     min-height:100vh;
     border: black solid;
   }
+  .list{
+    display: block;
+  }
+  .bar{
+    display:none;
+  }
   }
 
 
@@ -56,5 +62,11 @@
       width: 65%;
       min-height:100vh;
       background-color: white;
+    }
+    .list{
+      display: block;
+    }
+    .bar{
+      display:none;
     }
   }
