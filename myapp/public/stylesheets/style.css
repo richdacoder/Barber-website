@@ -46,7 +46,7 @@ height:10rem;
     display: flex;
 }
   .list{
-    display: block;
+    display: flex;
   }
   .main-container {
     width:100%;
@@ -64,7 +64,7 @@ height:10rem;
     display: flex
 }
   .list{
-    display: block;
+    display: flex;
   }
   .main-container {
     width:70%;
@@ -80,7 +80,7 @@ height:10rem;
       display: flex
   }
     .list{
-      display: block;
+      display: flex;
     }
     .main-container {
       width: 65%;
