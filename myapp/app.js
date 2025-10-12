@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, "public", 'stylesheets')));
 app.use(express.static(path.join(__dirname, "public", 'javascripts')));
 
 
+
 // ---------------------
 // Middleware
 // ---------------------
