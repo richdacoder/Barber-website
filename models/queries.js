@@ -1,10 +1,22 @@
 console.log('working')
 console.log('point 2')
 const pool = require("../db/db-connection");
-const getClients = (request, response) => {
-  console.log('some point');
-    var responseReturn = new ResponseClass();
-    pool.query('SELECT * FROM clients ORDER BY id ASC', (error, results) => {
+
+class ResponseClass {
+  construstor(){
+this.status = false;
+this.code = 500 ;
+this.message = "" ;
+this.data = null;
+  }
+}
+
+const responseReturn = new ResponseClass();
+
+const getAppointments = (request, response) => {
+  console.log('point 4');
+    responseReturn
+    pool.query('SELECT * FROM appointments ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }
@@ -19,6 +31,6 @@ const getClients = (request, response) => {
 
 
 }
-getClients();
+getAppointments();
 //i think it needs get appointments
 //CREATE GETAPPOINTMENTS
