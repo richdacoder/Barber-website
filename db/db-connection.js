@@ -17,5 +17,5 @@ pool.query("SELECT NOW()", (err, res) => {
   } else {
     console.log("Connected! Current time:", res.rows[0].now);
   }
-  pool.end();
+ // pool.end();
 });
