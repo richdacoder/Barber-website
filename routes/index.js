@@ -1,16 +1,21 @@
 const express = require("express");
 const router = express.Router();
 console.log('point 1');
-const db = require("../models/queries");
+// const db = require("../models/queries");
+const { getAppointments } = require('../models/queries');
 console.log('point 4');
 console.log('index.js is running');
 
 console.log('point 5')
 router.get("/", async (req, res) => {
   console.log('point 6');
-  try {
-    const data = await db('appointments').select('*');
-    res.render("index", {data});
+  (async () => {
+    const response = await getAppointments();
+    console.log('check here', response);
+  })();
+    try {
+    const response = await getAppointments(); // returns ResponseClass
+    res.render("index", { data: response.data }); // pass only the appointments array
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching appointments");
