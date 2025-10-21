@@ -3,7 +3,7 @@ console.log('point 2')
 const pool = require("../db/db-connection");
 
 class ResponseClass {
-  construstor(){
+  constructor(){
 this.status = false;
 this.code = 500 ;
 this.message = "" ;
@@ -11,26 +11,37 @@ this.data = null;
   }
 }
 
-const responseReturn = new ResponseClass();
 
-const getAppointments = (request, response) => {
-  console.log('point 4');
-    responseReturn
-    pool.query('SELECT * FROM appointments ORDER BY id ASC', (error, results) => {
-        if (error) {
-            throw error
-        }
+const getAppointments = async (request, response) => {
+  const responseReturn = new ResponseClass();
+  console.log('Before query:', responseReturn);
 
-        responseReturn.status = true;
-        responseReturn.code = 200;
-        responseReturn.message = "Success";
-        responseReturn.data = results.rows;
+  try {
+    // Use await without callback
+    const results = await pool.query('SELECT * FROM appointments ORDER BY id ASC');
 
-        response.status(200).json(responseReturn);
-    })
+    responseReturn.status = true;
+    responseReturn.code = 200;
+    responseReturn.message = "Success";
+    responseReturn.data = results.rows;
 
+    if (response) {
+      // Express route call
+      response.status(200).json(responseReturn);
+    } else {
+      // Direct Node test
+      console.log('After query:', responseReturn);
+    }
 
-}
-getAppointments();
+  } catch (error) {
+    console.error('Database error:', error);
+    if (response) {
+      response.status(500).json({ message: 'Database error' });
+    }
+  }
+};
+
+getAppointments()
+ module.exports = { getAppointments };
 //i think it needs get appointments
 //CREATE GETAPPOINTMENTS

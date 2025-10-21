@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+ const { Pool } = require("pg");
 
 // Create a PostgreSQL connection pool using environment variables
 const pool = new Pool({
@@ -19,3 +19,6 @@ pool.query("SELECT NOW()", (err, res) => {
   }
  // pool.end();
 });
+
+
+module.exports = pool;
