@@ -32,8 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 // ---------------------
 app.use('/', indexRouter);  // Mount all routes from routes/index.js
-// app.use('/contacts', indexRouter);
-
 
 // ---------------------
 // Catch 404 and forward to error handler
