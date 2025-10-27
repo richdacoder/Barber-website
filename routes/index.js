@@ -1,18 +1,12 @@
 const express = require("express");
 const router = express.Router();
-console.log('point 1');
 // const db = require("../models/queries");
 const { getAppointments } = require('../models/queries');
-console.log('point 4');
 console.log('index.js is running');
 
-console.log('point 5')
+
 router.get("/", async (req, res) => {
-  console.log('point 6');
-  (async () => {
-    const response = await getAppointments();
-    console.log('check here', response);
-  })();
+  console.log('read /');
     try {
     const response = await getAppointments(); // returns ResponseClass
     res.render("index", { data: response.data }); // pass only the appointments array
@@ -23,23 +17,13 @@ router.get("/", async (req, res) => {
 });
 
 
-router.get("/clients", (req, res) => {
-  console.log("GET /clients called");
-  if (err) {
-      console.log("DB error:", err);
-      return res.status(500).send("Database error");
-    }
-  res.render("index")
-  // db.getclients((err, clients) => {
-  //   if (err) {
-  //     console.log("DB error:", err);
-  //     return res.status(500).send("Database error");
-  //   }
-
-  //   console.log("clients from DB:", clients);
-  //   res.render("index", { clients });
-  //   res.send("/clients")
-  // });
+router.get("/contacts", async (req, res) => {
+  try{
+    res.render("contacts");
+    } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching appointments");
+  }
 });
 
 

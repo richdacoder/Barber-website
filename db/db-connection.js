@@ -8,7 +8,7 @@ const pool = new Pool({
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
 });
-console.log('point 3')
+console.log('after db data pool')
 // console.log(pool._clients);
 // Test the connection
 pool.query("SELECT NOW()", (err, res) => {
