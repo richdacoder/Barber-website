@@ -27,20 +27,12 @@ router.get("/contacts", async (req, res) => {
 });
 
 
-router.get("/clients/:id", (req, res) => {
-  const id = req.params.id;
-  db.getClientsById(id, (err, client) => {
-    if (err) {
-      console.error("DB error:", err);
-      return res.status(500).send("Database error");
-    }
-
-    if (!client) {
-      return res.status(404).send("Client not found");
-    }
-
-    res.render("clientDetail", { client });
-  });
+router.get("/availibility", async (req, res) => {
+try{
+  res.render('availibility');
+} catch (err){
+  res.status(500).send("Error fetching appointments");
+}
 });
 
 module.exports = router;
