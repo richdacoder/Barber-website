@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 // const db = require("../models/queries");
-const { getAppointments, getContacts } = require('../models/queries');
+const { getAppointments, getContacts, getAvailibility } = require('../models/queries');
 console.log('index.js is running');
 
 
@@ -21,7 +21,6 @@ router.get("/", async (req, res) => {
 router.get("/contacts", async (req, res) => {
   try{
     const response = await getContacts();
-    console.log(response);
     res.render("contacts", {data: response.data });
     } catch (err) {
     console.error(err);
@@ -32,7 +31,8 @@ router.get("/contacts", async (req, res) => {
 
 router.get("/availibility", async (req, res) => {
 try{
-  res.render('availibility');
+  const response = await getAvailibility();
+  res.render('availibility', {data: response.data});
 } catch (err){
   res.status(500).send("Error fetching appointments");
 }

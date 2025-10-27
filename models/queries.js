@@ -44,10 +44,24 @@ const getContacts = async () => {
   }
 }
 
+const getAvailibility = async () => {
+  const responseReturn = new ResponseClass();
+  try {
+    const results = await pool.query('SELECT * FROM time_slots ORDER BY id ASC');
+    responseReturn.status = true;
+    responseReturn.code = 200;
+    responseReturn.message = "success"
+    responseReturn.data = results.rows;
+    return responseReturn;
+  } catch (error) {
+    console.error(error);
+    responseReturn.message = 'Database error';
+  }
+
+
+}
 
 
 // getAppointments()
 // getContacts()
- module.exports = { getAppointments, getContacts };
-//i think it needs get appointments
-//CREATE GETAPPOINTMENTS
+ module.exports = { getAppointments, getContacts, getAvailibility };
