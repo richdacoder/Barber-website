@@ -1,0 +1,11 @@
+<div class="availibility-list">
+  <ul>
+    <% data.forEach(availibility => {
+         const time = new Date(`1970-01-01T${availibility.slot_time}Z`); %>
+      <li>
+        <%= availibility.slot_date.toISOString().split('T')[0] %>
+        <%= time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+      </li>
+    <% }) %>
+  </ul>
+</div>
