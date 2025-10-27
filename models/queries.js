@@ -29,6 +29,7 @@ const getAppointments = async () => {
 
 const getContacts = async () => {
   const responseReturn = new ResponseClass();
+
   try{
     const results = await pool.query('SELECT * FROM clients ORDER BY id ASC');
     responseReturn.status = true;
@@ -43,7 +44,10 @@ const getContacts = async () => {
   }
 }
 
+
+
 // getAppointments()
+// getContacts()
  module.exports = { getAppointments, getContacts };
 //i think it needs get appointments
 //CREATE GETAPPOINTMENTS

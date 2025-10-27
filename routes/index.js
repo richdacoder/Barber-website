@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 // const db = require("../models/queries");
-const { getAppointments } = require('../models/queries');
+const { getAppointments, getContacts } = require('../models/queries');
 console.log('index.js is running');
 
 
@@ -17,12 +17,15 @@ router.get("/", async (req, res) => {
 });
 
 
+
 router.get("/contacts", async (req, res) => {
   try{
-    res.render("contacts");
+    const response = await getContacts();
+    console.log(response);
+    res.render("contacts", {data: response.data });
     } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching appointments");
+    res.status(500).send("Error fetching contacts");
   }
 });
 
