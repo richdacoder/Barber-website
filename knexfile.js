@@ -11,9 +11,12 @@ module.exports = {
       database: process.env.PGDATABASE,
     },
     migrations: {
-      directory: './migrations', // ✅ tells Knex where to put migration files
+      directory: [
+        './migrations/time-slots',
+        './migrations/appointments'
+      ]
     },
-    seeds: {
+        seeds: {
       directory: './seeds',
     },
   },
