@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/availibility.css">
 <div class="availibility-list">
   <ul>
     <% data.forEach(availibility => {
@@ -8,4 +9,39 @@
       </li>
     <% }) %>
   </ul>
+
+  <div class="availability-container">
+    <h2>Weekly Availability</h2>
+    <form id="availabilityForm">
+      <% const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]; %>
+      <% days.forEach(day => { %>
+        <div id="each-day" class="day-row" data-day="<%= day %>">
+          <div class="day-label">
+            <input type="checkbox" name="days" value="<%= day %>">
+            <strong><%= day %></strong>
+          </div>
+
+          <div class="time-inputs">
+            <input type="time" name="start_<%= day %>[]" placeholder="Start">
+            <input type="time" name="end_<%= day %>[]" placeholder="End">
+          </div>
+
+          <div class="action-buttons">
+            <button type="button" class="btn addTime">+</button>
+            <button type="button" class="btn btn-danger removeTime">x</button>
+            <button type="button" class="btn btn-copy copyTime">📋</button>
+          </div>
+        </div>
+      <% }); %>
+
+      <br>
+      <button type="submit" class="btn">Save Availability</button>
+    </form>
+  </div>
+
+  <div class="copy-popup" id="copyPopup">
+    <h4>Copy times to:</h4>
+    <div id="copyDays"></div>
+    <button class="btn" id="confirmCopy">Copy</button>
+  </div>
 </div>
