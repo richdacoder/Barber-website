@@ -1,35 +1,49 @@
 <link rel="stylesheet" href="/availibility.css">
 
 <div class="availibility-list">
-  <ul>
-    <% data.forEach(availibility => {
-         const time = availibility.slot_time ? new Date(`1970-01-01T${availibility.slot_time}Z`) : null; %>
-      <li>
-        <%= availibility.slot_date ? availibility.slot_date.toISOString().split('T')[0] : 'N/A' %>
-        <%= time ? time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Unavailable' %>
-      </li>
-    <% }) %>
-  </ul>
-
   <div class="availability-container">
     <h2>Weekly Availability</h2>
     <form id="availabilityForm" action="/availibility" method="POST">
       <% const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]; %>
-      <% days.forEach(day => { %>
+
+      <% days.forEach(day => {
+           // Filter saved slots for this day
+           const savedSlots = data.filter(slot => slot.day_of_week === day);
+           const isChecked = savedSlots.length > 0;
+      %>
         <div class="day-row" data-day="<%= day %>">
           <div class="day-label">
-            <input type="checkbox" name="days" value="<%= day %>" class="day-checkbox">
+            <% if (isChecked) { %>
+              <input type="checkbox" name="days" value="<%= day %>" class="day-checkbox" checked>
+            <% } else { %>
+              <input type="checkbox" name="days" value="<%= day %>" class="day-checkbox">
+            <% } %>
             <strong><%= day %></strong>
           </div>
 
-          <!-- Time inputs hidden by default -->
-          <div class="time-inputs" style="display:none;">
-            <input type="time" name="start_<%= day %>[]" placeholder="Start">
-            <input type="time" name="end_<%= day %>[]" placeholder="End">
-          </div>
-
-          <!-- Show "Unavailable" by default -->
-          <div class="unavailable-text">Unavailable</div>
+          <% if (isChecked) { %>
+            <!-- Time inputs displayed because checkbox is checked -->
+            <div class="time-inputs" style="display:block;">
+              <% savedSlots.forEach(slot => { %>
+                <div class="time-pair">
+                  <input type="time" name="start_<%= day %>[]"
+                         value="<%= slot.slot_time ? slot.slot_time.slice(0,5) : '' %>">
+                  <input type="time" name="end_<%= day %>[]"
+                         value="<%= slot.end_time ? slot.end_time.slice(0,5) : '' %>">
+                </div>
+              <% }); %>
+            </div>
+            <div class="unavailable-text" style="display:none;"><em>Unavailable</em></div>
+          <% } else { %>
+            <!-- Checkbox not checked: hide time inputs and show unavailable -->
+            <div class="time-inputs" style="display:none;">
+              <div class="time-pair">
+                <input type="time" name="start_<%= day %>[]">
+                <input type="time" name="end_<%= day %>[]">
+              </div>
+            </div>
+            <div class="unavailable-text" style="display:block;"><em>Unavailable</em></div>
+          <% } %>
 
           <div class="action-buttons">
             <button type="button" class="btn addTime">+</button>
@@ -51,4 +65,5 @@
     <button class="btn" id="confirmCopy">Copy</button>
   </div>
 </div>
-<script src="availibility.js" ></script>
+
+<script src="availibility.js"></script>
