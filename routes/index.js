@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 // const db = require("../models/queries");
-const { getAppointments, getContacts, getAvailibility } = require('../models/queries');
+const { getAppointments, getContacts, getAvailibility, postAvailibility } = require('../models/queries');
 console.log('index.js is running');
-
 
 router.get("/", async (req, res) => {
   console.log('read /');
@@ -15,8 +14,6 @@ router.get("/", async (req, res) => {
     res.status(500).send("Error fetching appointments");
   }
 });
-
-
 
 router.get("/contacts", async (req, res) => {
   try{
@@ -36,6 +33,20 @@ try{
 } catch (err){
   res.status(500).send("Error fetching appointments");
 }
+});
+
+router.post("/availibility", async (req, res) => {
+  const barberId = 1;
+  console.log(req.body);
+
+  const response = await postAvailibility(barberId, req.body);
+
+  if (!response.status) {
+    console.log("⚠️", response.message);
+    return res.status(response.code || 400).send(response.message);
+  }
+
+  res.redirect("/availibility");
 });
 
 module.exports = router;
