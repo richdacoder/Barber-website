@@ -1,3 +1,52 @@
-#each-day{
-display:flex;
+.day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* allows items to wrap on small screens */
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.day-label {
+  flex: 0 0 120px; /* fixed width on desktop */
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.time-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex: 1 1 150px; /* grows/shrinks for mobile */
+  margin-bottom: 5px;
+}
+
+.time-inputs input {
+  flex: 1;
+  min-width: 80px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* MOBILE STYLES */
+@media (max-width: 600px) {
+  .day-row {
+    flex-direction: column; /* stack items vertically */
+    align-items: flex-start;
+  }
+
+  .day-label, .time-inputs, .action-buttons {
+    flex: 1 1 100%;
+    margin-bottom: 5px;
+  }
+
+  .time-inputs input {
+    width: 100%;
+  }
 }

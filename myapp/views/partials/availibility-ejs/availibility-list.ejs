@@ -1,30 +1,35 @@
 <link rel="stylesheet" href="/availibility.css">
+
 <div class="availibility-list">
   <ul>
     <% data.forEach(availibility => {
-         const time = new Date(`1970-01-01T${availibility.slot_time}Z`); %>
+         const time = availibility.slot_time ? new Date(`1970-01-01T${availibility.slot_time}Z`) : null; %>
       <li>
-        <%= availibility.slot_date.toISOString().split('T')[0] %>
-        <%= time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+        <%= availibility.slot_date ? availibility.slot_date.toISOString().split('T')[0] : 'N/A' %>
+        <%= time ? time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Unavailable' %>
       </li>
     <% }) %>
   </ul>
 
   <div class="availability-container">
     <h2>Weekly Availability</h2>
-    <form id="availabilityForm">
+    <form id="availabilityForm" action="/availibility" method="POST">
       <% const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]; %>
       <% days.forEach(day => { %>
-        <div id="each-day" class="day-row" data-day="<%= day %>">
+        <div class="day-row" data-day="<%= day %>">
           <div class="day-label">
-            <input type="checkbox" name="days" value="<%= day %>">
+            <input type="checkbox" name="days" value="<%= day %>" class="day-checkbox">
             <strong><%= day %></strong>
           </div>
 
-          <div class="time-inputs">
+          <!-- Time inputs hidden by default -->
+          <div class="time-inputs" style="display:none;">
             <input type="time" name="start_<%= day %>[]" placeholder="Start">
             <input type="time" name="end_<%= day %>[]" placeholder="End">
           </div>
+
+          <!-- Show "Unavailable" by default -->
+          <div class="unavailable-text">Unavailable</div>
 
           <div class="action-buttons">
             <button type="button" class="btn addTime">+</button>
@@ -34,8 +39,9 @@
         </div>
       <% }); %>
 
-      <br>
-      <button type="submit" class="btn">Save Availability</button>
+      <div class="form-actions">
+        <button type="submit" class="btn">Save Availability</button>
+      </div>
     </form>
   </div>
 
@@ -45,3 +51,4 @@
     <button class="btn" id="confirmCopy">Copy</button>
   </div>
 </div>
+<script src="availibility.js" ></script>
