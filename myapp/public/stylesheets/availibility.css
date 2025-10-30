@@ -15,6 +15,11 @@
   margin-bottom: 5px;
 }
 
+.hidden {
+  display: none;
+}
+
+
 .time-inputs {
   display: flex;
   gap: 10px;

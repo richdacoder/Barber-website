@@ -36,7 +36,7 @@ try{
 });
 
 router.post("/availibility", async (req, res) => {
-  const barberId = 1;
+  const barberId = 1; // example, replace with session user if needed
   console.log(req.body);
 
   const response = await postAvailibility(barberId, req.body);
