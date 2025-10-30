@@ -2,29 +2,31 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Toggle time inputs on page load and on checkbox change
-  document.querySelectorAll('.day-checkbox').forEach(checkbox => {
-    const dayRow = checkbox.closest('.day-row');
-    const timeInputs = dayRow.querySelector('.time-inputs');
-    const unavailableText = dayRow.querySelector('.unavailable-text');
+  // Helper: toggle time inputs & unavailable text
+  const toggleTimeInputs = (row, show) => {
+    const timeInputs = row.querySelector('.time-inputs');
+    const unavailableText = row.querySelector('.unavailable-text');
 
-    function updateVisibility() {
-      if (checkbox.checked) {
-        timeInputs.style.display = 'flex';
-        unavailableText.style.display = 'none';
-      } else {
-        timeInputs.style.display = 'none';
-        unavailableText.style.display = 'block';
-        // Clear all inputs for this day
-        timeInputs.querySelectorAll('input').forEach(input => input.value = '');
-      }
+    timeInputs.style.display = show ? 'flex' : 'none';
+    unavailableText.style.display = show ? 'none' : 'block';
+
+    // Clear inputs if hiding
+    if (!show) {
+      timeInputs.querySelectorAll('input').forEach(input => input.value = '');
     }
+  };
 
-    updateVisibility(); // initial state
-    checkbox.addEventListener('change', updateVisibility);
+  // Initial setup and checkbox toggle
+  document.querySelectorAll('.day-checkbox').forEach(checkbox => {
+    const row = checkbox.closest('.day-row');
+
+    // Initialize
+    toggleTimeInputs(row, checkbox.checked);
+
+    checkbox.addEventListener('change', () => toggleTimeInputs(row, checkbox.checked));
   });
 
-  // Add new start/end row
+  // Add new start/end time row
   document.querySelectorAll('.addTime').forEach(btn => {
     btn.addEventListener('click', e => {
       const row = e.target.closest('.day-row');
@@ -32,12 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!checkbox.checked) return; // only add if checked
 
       const inputsDiv = row.querySelector('.time-inputs');
-      const newInputs = document.createElement('div');
-      newInputs.innerHTML = `
+      const div = document.createElement('div');
+      div.classList.add('time-pair');
+      div.innerHTML = `
         <input type="time" name="start_${row.dataset.day}[]" placeholder="Start">
         <input type="time" name="end_${row.dataset.day}[]" placeholder="End">
       `;
-      inputsDiv.appendChild(newInputs);
+      inputsDiv.appendChild(div);
     });
   });
 
@@ -58,21 +61,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = e.target.closest('.day-row');
       const day = row.dataset.day;
       const checkbox = row.querySelector('.day-checkbox');
-      if (!checkbox.checked) return; // only copy if source day is checked
+      if (!checkbox.checked) return;
 
+      // Collect source times
       const startTimes = Array.from(row.querySelectorAll(`input[name="start_${day}[]"]`)).map(i => i.value);
       const endTimes = Array.from(row.querySelectorAll(`input[name="end_${day}[]"]`)).map(i => i.value);
 
+      // Apply to all other checked days
       document.querySelectorAll('.day-row').forEach(targetRow => {
+        const targetDay = targetRow.dataset.day;
         const targetCheckbox = targetRow.querySelector('.day-checkbox');
-        if (targetRow.dataset.day !== day && targetCheckbox.checked) {
+
+        if (targetDay !== day && targetCheckbox.checked) {
           const inputsDiv = targetRow.querySelector('.time-inputs');
           inputsDiv.innerHTML = ''; // clear existing
+
           startTimes.forEach((start, i) => {
             const end = endTimes[i];
             const div = document.createElement('div');
-            div.innerHTML = `<input type="time" name="start_${targetRow.dataset.day}[]" value="${start}">
-                             <input type="time" name="end_${targetRow.dataset.day}[]" value="${end}">`;
+            div.classList.add('time-pair');
+            div.innerHTML = `
+              <input type="time" name="start_${targetDay}[]" value="${start}">
+              <input type="time" name="end_${targetDay}[]" value="${end}">
+            `;
             inputsDiv.appendChild(div);
           });
         }
