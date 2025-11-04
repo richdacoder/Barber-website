@@ -5,8 +5,8 @@ const { getAppointments, getContacts, getAvailibility, postAvailibility } = requ
 console.log('index.js is running');
 
 router.get("/", async (req, res) => {
-  console.log('read /');
-    try {
+  console.log('Appointments:', response.data);
+      try {
     const response = await getAppointments(); // returns ResponseClass
     res.render("index", { data: response.data }); // pass only the appointments array
   } catch (err) {

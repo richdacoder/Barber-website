@@ -1,0 +1,26 @@
+<!-- apply-copy-hours.ejs -->
+<div class="copy-popup hidden" id="copyPopup">
+  <div class="popup-content">
+    <h3>Copy Hours to Other Days</h3>
+    <p>Select the days you want to copy these hours to:</p>
+    <div id="copyDays" class="copy-days-list">
+      <% const allDays = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; %>
+      <% allDays.forEach(day => { %>
+        <div class="copy-day-row">
+          <label for="copy_<%= day %>"><%= day %></label>
+          <input
+            type="checkbox"
+            id="copy_<%= day %>"
+            class="copy-day-checkbox"
+            value="<%= day %>">
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="popup-actions">
+      <button type="button" class="btn" id="applyCopy">Apply</button>
+      <button type="button" class="btn btn-secondary" id="closeCopy">Close</button>
+    </div>
+  </div>
+</div>
+<script src="copy-hours-availibility.js"></script>

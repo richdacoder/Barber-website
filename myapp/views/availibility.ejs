@@ -3,24 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Availability</title>
   <link rel="stylesheet" href="/style.css">
   <script src="https://kit.fontawesome.com/cf9a0dc4e8.js" crossorigin="anonymous"></script>
-    <link rel = "stylesheet" href ="style.css"/>
 </head>
 <body>
   <div class="main-container">
-  <header>
-    <%- include('partials/header') %>
-  </header>
-  <article>
-    <h1> Availible Dates </h1>
-    <div>
-      <%- include('partials/availibility-ejs/availibility-list') %>
-    </div>
-  </article>
-  <footer></footer>
-</div>
-<script src="navbar.js" ></script>
+    <header>
+      <%- include('partials/header') %>
+    </header>
+
+    <article>
+      <h1>Available Dates</h1>
+      <div>
+        <%- include('partials/availibility-ejs/availibility-list') %>
+      </div>
+    </article>
+
+    <!-- Popup message container -->
+
+    <footer></footer>
+  </div>
+
+  <script src="navbar.js"></script>
 </body>
 </html>
