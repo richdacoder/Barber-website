@@ -1,7 +1,7 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  console.log('Availability JS loaded');
   // Helper: toggle time inputs & unavailable text
   const toggleTimeInputs = (row, show) => {
     const timeInputs = row.querySelector('.time-inputs');
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.addTime').forEach(btn => {
     btn.addEventListener('click', e => {
       const row = e.target.closest('.day-row');
+      console.log(row);
       const checkbox = row.querySelector('.day-checkbox');
       if (!checkbox.checked) return; // only add if checked
 
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <input type="time" name="end_${row.dataset.day}[]" placeholder="End">
       `;
       inputsDiv.appendChild(div);
+      console.log(inputsDiv)
     });
   });
 
