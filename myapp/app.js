@@ -14,10 +14,7 @@ const app = express();
 // ---------------------
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, "public", 'stylesheets')));
-app.use(express.static(path.join(__dirname, "public", 'javascripts')));
-app.use(express.static(path.join(__dirname, "public", 'javascripts', 'pop-up')));
-
+app.use(express.static(path.join(__dirname, "public")));
 
 
 
