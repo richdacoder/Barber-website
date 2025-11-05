@@ -5,10 +5,10 @@ const { getAppointments, getContacts, getAvailibility, postAvailibility } = requ
 console.log('index.js is running');
 
 router.get("/", async (req, res) => {
-  console.log('Appointments:', response.data);
       try {
-    const response = await getAppointments(); // returns ResponseClass
-    res.render("index", { data: response.data }); // pass only the appointments array
+        const response = await getAppointments(); // returns ResponseClass
+        console.log("Appointments:", response.data);
+        res.render("index", { data: response.data }); // pass only the appointments array
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching appointments");
