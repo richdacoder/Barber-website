@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/stylesheets/availibility.css">
-
+<link rel="stylesheet" href="/stylesheets/copy-hours-availibility.css">
 <div class="availibility-list">
   <div class="availability-container">
     <h2>Weekly Availability</h2>
@@ -50,6 +50,10 @@
         </div>
 
       <% }); %>
+      <div>
+         <%- include('apply-copy-hours.ejs') %>
+         <%- include('apply-copy-hours.ejs') %>
+         </div>
 
       <div class="form-actions">
         <button type="submit" class="btn">Save Availability</button>
@@ -59,4 +63,5 @@
   </div>
   <div>
     </div>
+    <script src="javascripts/pop-ups/copy-hours-availibility.js"></script>
      <script src="javascripts/pop-ups/saved-availibility-popup.js"></script>
