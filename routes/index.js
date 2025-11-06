@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const db = require("../models/queries");
 const { getAppointments, getContacts, getAvailibility, postAvailibility } = require('../models/queries');
-console.log('index.js is running');
 router.get("/", async (req, res) => {
       try {
         const response = await getAppointments(); // returns ResponseClass
