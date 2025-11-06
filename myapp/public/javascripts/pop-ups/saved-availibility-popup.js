@@ -1,19 +1,21 @@
+"use strict";
+
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('availabilityForm');
-  const popup = document.getElementById('popup-message');
+  const form = document.querySelector('#availabilityForm');
+  const popup = document.querySelector('.popup-message');
 
-  if (form) {
-    form.addEventListener('submit', () => {
-      // Show popup immediately
-      popup.textContent = 'Availability saved!';
-      popup.classList.remove('hidden');
-      popup.classList.add('show');
+  if (!form || !popup) return; // safe exit if elements don't exist
 
-      // Hide popup after 2 seconds
-      setTimeout(() => {
-        popup.classList.remove('show');
-        popup.classList.add('hidden');
-      }, 2000);
-    });
-  }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault(); // prevent form from actually submitting (for client-side behavior)
+    console.log('Form saved successfully');
+
+    // Show popup immediately
+    popup.classList.remove('hidden');
+
+    // Hide popup after 5 seconds
+    setTimeout(() => {
+      popup.classList.add('hidden');
+    }, 5000);
+  });
 });
