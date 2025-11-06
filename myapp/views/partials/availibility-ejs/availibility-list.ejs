@@ -3,7 +3,7 @@
 <div class="availibility-list">
   <div class="availability-container">
     <h2>Weekly Availability</h2>
-
+    <div><%- include('saved-pop-up.ejs') %> </div>
     <form id="availabilityForm" action="/availibility" method="POST">
       <% const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; %>
 
@@ -50,15 +50,10 @@
         </div>
 
       <% }); %>
-      <div>
-         <%- include('apply-copy-hours.ejs') %>
-         <%- include('apply-copy-hours.ejs') %>
-         </div>
-
+      <div> <%- include('apply-copy-hours.ejs') %> </div>
       <div class="form-actions">
         <button type="submit" class="btn">Save Availability</button>
       </div>
-      <div id="popup-message" class="popup-message hidden"></div>
     </form>
   </div>
   <div>
