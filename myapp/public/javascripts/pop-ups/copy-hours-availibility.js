@@ -1,5 +1,5 @@
 "use strict";
-console.log('copy hours')
+console.log('copy hours is working now')
 document.addEventListener('DOMContentLoaded', () => {
   const popup = document.getElementById('copyPopup');
   const daysList = document.getElementById('copyDays');
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Open popup when copy button is clicked
   document.querySelectorAll('.copyTime').forEach(btn => {
     btn.addEventListener('click', e => {
+      console.log('clicked')
       const row = e.target.closest('.day-row');
       if (!row) return;
 
