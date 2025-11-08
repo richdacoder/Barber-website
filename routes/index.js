@@ -3,9 +3,9 @@ const router = express.Router();
 const { getAppointments, getContacts, getAvailibility, postAvailibility } = require('../models/queries');
 router.get("/", async (req, res) => {
       try {
-        const response = await getAppointments(); // returns ResponseClass
+        const response = await getAppointments();
         console.log("Appointments:", response.data);
-        res.render("index", { data: response.data }); // pass only the appointments array
+        res.render("index", { data: response.data });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching appointments");
