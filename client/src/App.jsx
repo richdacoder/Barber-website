@@ -1,21 +1,19 @@
-import { useState } from 'react'
-import './App.css';
-import Navbar from '../components/navbar';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import BookNow from '../components/booknow';
-import Calendar from 'react-calendar'; 
+import CalendarPage from '../components/calendarPage';
 
 function App() {
   return (
     <div>
-      <div className='navbar'>
-        <Navbar />
-      </div>
-      <div> <BookNow/> </div>
+      <Navbar />
 
-      <div className='new-client-form'></div>
-      <div className='new-appointment-form'></div>
+      <Routes>
+        <Route path="/" element={<BookNow />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
