@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css';
 import Navbar from '../components/navbar';
+import Calendar from 'react-calendar';
 
 function App() {
   return (
