@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css';
 import Navbar from '../components/navbar';
 import BookNow from '../components/booknow';
-
+import Calendar from 'react-calendar'; 
 
 function App() {
   return (
