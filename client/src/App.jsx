@@ -8,6 +8,7 @@ function App() {
     <div>
       <Navbar />
 
+
       <Routes>
         <Route path="/" element={<BookNow />} />
         <Route path="/calendar" element={<CalendarPage />} />
