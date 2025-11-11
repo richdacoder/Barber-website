@@ -1,12 +1,17 @@
 import { useState } from 'react'
-import './App.css'
+import './App.css';
+import Navbar from '../components/navbar';
 
 function App() {
-<div>
-<div className='navbar'> </div>
-<div className='new-client-form'></div>
-<div className='new-appointment-form'></div>
-</div>
+  return (
+    <div>
+      <div className='navbar'>
+        <Navbar />
+      </div>
+      <div className='new-client-form'></div>
+      <div className='new-appointment-form'></div>
+    </div>
+  )
 }
 
 export default App
