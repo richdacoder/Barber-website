@@ -1,0 +1,88 @@
+/* Page wrapper */
+.calendar-container {
+  max-width: 450px;
+  margin: 2rem auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Calendar itself */
+.react-calendar {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+/* Tiles (dates) */
+.react-calendar__tile {
+  height: 50px;
+  line-height: 50px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  margin: 2px;
+  transition: all 0.2s ease;
+}
+
+.react-calendar__tile:hover {
+  background: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.react-calendar__tile--now {
+  background: #e0f7fa;
+  font-weight: bold;
+}
+
+.react-calendar__tile--active {
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+/* Navigation bar */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.react-calendar__navigation button {
+  color: #4caf50;
+  min-width: 40px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.react-calendar__navigation button:hover {
+  transform: scale(1.2);
+  color: #2e7d32;
+}
+
+/* Month and Year text */
+.react-calendar__navigation__label {
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: right; /* aligns month/year to the right */
+}
+
+/* Weekday labels */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Selected date text below */
+.selected-date {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #4caf50;
+}
