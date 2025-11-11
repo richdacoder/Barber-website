@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import ReactCalendar from 'react-calendar'; // avoid naming conflict
-import 'react-calendar/dist/Calendar.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../css/CalendarPage.css'; // optional for custom styling
 
 const CalendarPage = () => {
-  const [date, setDate] = useState(new Date()); // React state for selected date
-  const today = new Date(); // current date
-
-  // You could later send this date to your backend API when submitting an appointment
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const today = new Date();
 
   return (
     <div className="calendar-container">
       <h2>Select a Date</h2>
-      <ReactCalendar
-         onChange={setDate}   // updates React state when user selects a date
-         value={date}         // controlled component
-         nextLabel="▶"        // custom right arrow
-         prevLabel="◀"        // custom left arrow
-         minDate={today}      // disables past dates
-         showNeighboringMonth={true}
+      <DatePicker
+        selected={selectedDate}       // controlled component
+        onChange={date => setSelectedDate(date)} // update state on selection
+        inline                        // display calendar without input
+        minDate={today}               // disable past dates
+        calendarStartDay={0}          // Sunday as first day
+        showMonthDropdown={true}      // optional: dropdown for month
+        showYearDropdown={true}       // optional: dropdown for year
+        dropdownMode="select"
       />
-      <p>Selected date: {date.toDateString()}</p>
+      <p>Selected date: {selectedDate.toDateString()}</p>
     </div>
   );
 };
