@@ -1,28 +1,33 @@
-import { useEffect } from 'react';
+// src/components/calendar-components/use-effect.jsx
+import { useEffect } from "react";
+import axios from "axios";
 
-const EffectUse = ({ selectedDate, setTimeSlots, setSelectedSlotId, setLoading }) => {
+export default function useFetchSlots({ selectedDate, setLoading, setTimeSlots, setSelectedSlotId }) {
   useEffect(() => {
-    const fetchTimeSlots = async () => {
+    if (!selectedDate) return;
+
+    const fetchSlots = async () => {
       setLoading(true);
-      const formattedDate = selectedDate.toISOString().split('T')[0];
+      const formattedDate = selectedDate.toISOString().split("T")[0];
 
       try {
-        const res = await fetch(`http://localhost:3001/api/time-slots?date=${formattedDate}`);
-        const data = await res.json();
-        setTimeSlots(data);
+        const res = await axios.get("http://localhost:3001/calendar", {
+          params: { date: formattedDate },
+        });
+        console.log(res);
+
+
+        // ✅ Ensure it's always an array
+        setTimeSlots(Array.isArray(res.data) ? res.data : []);
         setSelectedSlotId(null);
       } catch (err) {
-        console.error('Error fetching time slots:', err);
+        console.error("Error fetching time slots:", err);
         setTimeSlots([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTimeSlots();
-  }, [selectedDate, setTimeSlots, setSelectedSlotId, setLoading]);
-
-  return null; // no JSX output
-};
-
-export default EffectUse;
+    fetchSlots();
+  }, [selectedDate]);
+}

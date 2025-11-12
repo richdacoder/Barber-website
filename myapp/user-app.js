@@ -3,35 +3,52 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const app = express();
-const indexRouter = require('../routes/user-index');
+const cors = require('cors'); // ✅ Add CORS support
 
+const app = express();
+
+// ✅ Allow only your React frontend to access this API
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Allow only this origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow REST methods
+    credentials: true,
+  })
+);
+
+// Import routers
+const indexRouter = require('../routes/user-index'); // Main route for /calendar
+
+// View engine setup (if you use EJS for admin or error pages)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, "public")));
 
+// Middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);  // Mount all routes from routes/index.js
+// ✅ API route used by React (e.g. GET /calendar?date=YYYY-MM-DD)
+app.use('/calendar', indexRouter);
 
+// Catch 404
 app.use((req, res, next) => {
   next(createError(404));
 });
 
+// Error handler
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // Render error page
   res.status(err.status || 500);
-  res.render('error'); // make sure views/error.ejs exists
+  res.render('error');
 });
 
-const PORT = process.env.PORT || 3000;
+// Start server
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
