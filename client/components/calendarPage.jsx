@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../css/CalendarPage.css';
 
-import EffectUse from './calendar-components/use-effect';
+import useFetchSlots from './calendar-components/use-effect'; // ✅ renamed
 import TimeSlots from './calendar-components/time-slots';
 import AppointmentForm from './calendar-components/appointment-form';
 
@@ -13,10 +13,11 @@ const CalendarPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedSlotId, setSelectedSlotId] = useState(null);
 
+  // use the custom hook (not JSX)
+  useFetchSlots({ selectedDate, setLoading, setTimeSlots, setSelectedSlotId });
+
   // Handle slot selection
-  const handleSelectSlot = (slot) => {
-    setSelectedSlotId(slot.id);
-  };
+  const handleSelectSlot = (slot) => setSelectedSlotId(slot.id);
 
   // Handle form submission
   const handleFormSubmit = (formData) => {
@@ -25,18 +26,15 @@ const CalendarPage = () => {
     setSelectedSlotId(null);
   };
 
-  const today = new Date();
-
   return (
     <div className="calendar-container">
       <h2>Select a Date</h2>
 
-      {/* Calendar Picker */}
       <DatePicker
         selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
+        onChange={setSelectedDate}
         inline
-        minDate={today}
+        minDate={new Date()}
         calendarStartDay={0}
         showMonthDropdown
         showYearDropdown
@@ -45,15 +43,6 @@ const CalendarPage = () => {
 
       <p className="selected-date">Selected date: {selectedDate.toDateString()}</p>
 
-      {/* Fetch time slots whenever date changes */}
-      <EffectUse
-        selectedDate={selectedDate}
-        setTimeSlots={setTimeSlots}
-        setSelectedSlotId={setSelectedSlotId}
-        setLoading={setLoading}
-      />
-
-      {/* Time Slots Section */}
       <TimeSlots
         loading={loading}
         timeSlots={timeSlots}
@@ -61,7 +50,6 @@ const CalendarPage = () => {
         handleSelectSlot={handleSelectSlot}
       />
 
-      {/* Appointment Form */}
       <AppointmentForm
         selectedSlotId={selectedSlotId}
         selectedDate={selectedDate}
