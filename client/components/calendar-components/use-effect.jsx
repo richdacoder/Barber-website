@@ -14,7 +14,7 @@ export default function useFetchSlots({ selectedDate, setLoading, setTimeSlots, 
         const res = await axios.get("http://localhost:3001/calendar", {
           params: { date: formattedDate },
         });
-        console.log(res);
+        console.log(res.data);
 
 
         // ✅ Ensure it's always an array
