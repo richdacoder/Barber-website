@@ -27,22 +27,6 @@ const getAppointments = async () => {
 
 };
 
-const getContacts = async () => {
-  const responseReturn = new ResponseClass();
-
-  try{
-    const results = await pool.query('SELECT * FROM clients ORDER BY id ASC');
-    responseReturn.status = true;
-    responseReturn.code = 200;
-    responseReturn.message = "success"
-    responseReturn.data = results.rows;
-    return responseReturn;
-  } catch (error) {
-    console.error(error);
-    responseReturn.message = 'Database error';
-    return responseReturn;
-  }
-}
 
 
 
