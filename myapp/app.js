@@ -1,4 +1,3 @@
-// app.js
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,7 +6,8 @@ const logger = require('morgan');
 
 const indexRouter = require('../routes/index');
 const availabilityRouter = require('../routes/availability'); // <-- NEW
-const contactsRouter = require('../routes/contacts'); // <-- NEW
+const contactsRouter = require('../routes/contacts');       // <-- NEW
+const appointmentsRouter = require('../routes/appointments'); // <-- NEW
 
 const app = express();
 
@@ -28,7 +28,6 @@ app.use(cookieParser());
 // static files
 app.use(express.static(path.join(__dirname, "public")));
 
-
 // ---------------------
 // Routes
 // ---------------------
@@ -36,11 +35,16 @@ app.use('/', indexRouter);
 
 // NEW: Availability route (Admin page + API)
 app.use('/availability', availabilityRouter);
-// When you hit: http://localhost:3000/availability
-app.use('/contacts', contactsRouter);
-// GET  -> http://localhost:3000/contacts
-// POST -> http://localhost:3000/contacts
 
+// NEW: Contacts route (Admin page + API)
+app.use('/contacts', contactsRouter);
+
+// NEW: Appointments route (Admin page + API)
+app.use('/appointments', appointmentsRouter);
+// GET  -> http://localhost:3000/appointments
+// POST -> http://localhost:3000/appointments
+// PUT  -> http://localhost:3000/appointments/:id
+// DELETE -> http://localhost:3000/appointments/:id
 
 // ---------------------
 // 404 Handler
