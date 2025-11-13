@@ -5,20 +5,21 @@ const {
   createAppointment,
   updateAppointment,
   deleteAppointment
-} = require("../models/appointments-queries");
+} = require("../models/appointment-queries");
 
-// Get all appointments
+// -----------------------------
+// Render Homepage with appointments only
+// -----------------------------
 router.get("/", async (req, res) => {
   try {
-    const response = await getAppointments();
-    if (!response.status) return res.status(500).send(response.message);
-    res.render("appointments", { data: response.data });
+    const appointmentsResp = await getAppointments();
+    const appointment = appointmentsResp.status ? appointmentsResp.data : [];
+    res.render("index", { appointment });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching appointments");
+    res.status(500).send("Error loading homepage");
   }
 });
-
 // Create a new appointment
 router.post("/create", async (req, res) => {
   try {

@@ -3,8 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-const indexRouter = require('../routes/index');
 const availabilityRouter = require('../routes/availability'); // <-- NEW
 const contactsRouter = require('../routes/contacts');       // <-- NEW
 const appointmentsRouter = require('../routes/appointments'); // <-- NEW
@@ -30,9 +28,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ---------------------
 // Routes
-// ---------------------
-app.use('/', indexRouter);
-
+// --------------------
+app.use('/', appointmentsRouter);                   // Homepage
 // NEW: Availability route (Admin page + API)
 app.use('/availability', availabilityRouter);
 
