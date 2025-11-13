@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Import only availability queries
-const { getAvailibility, postAvailibility } = require("../models/queries");
+const { getAvailibility, postAvailibility } = require("../models/availibility-queries");
 
 // ----------------------
 // GET — Show availability page

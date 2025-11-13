@@ -17,7 +17,7 @@ const getAppointments = async () => {
   const response = new ResponseClass();
   try {
     const results = await pool.query(
-      `SELECT a.id, a.client_id, a.time_slot_id, a.service, a.notes,
+      `SELECT a.id, a.client_id, a.time_slot_id, a.service, a.status,
               c.first_name, c.last_name, c.email, c.phone_number,
               t.slot_time, t.end_time, t.slot_date, t.day_of_week
        FROM appointments a
@@ -39,13 +39,13 @@ const getAppointments = async () => {
 // ---------------------
 // Create a new appointment
 // ---------------------
-const createAppointment = async ({ client_id, time_slot_id, service, notes }) => {
+const createAppointment = async ({ client_id, time_slot_id, service, status }) => {
   const response = new ResponseClass();
   try {
     const result = await pool.query(
-      `INSERT INTO appointments (client_id, time_slot_id, service, notes)
+      `INSERT INTO appointments (client_id, time_slot_id, service, status)
        VALUES ($1, $2, $3, $4) RETURNING *`,
-      [client_id, time_slot_id, service, notes || null]
+      [client_id, time_slot_id, service, status || 'pending']
     );
     response.status = true;
     response.code = 201;
@@ -61,14 +61,14 @@ const createAppointment = async ({ client_id, time_slot_id, service, notes }) =>
 // ---------------------
 // Update an existing appointment
 // ---------------------
-const updateAppointment = async (id, { client_id, time_slot_id, service, notes }) => {
+const updateAppointment = async (id, { client_id, time_slot_id, service, status }) => {
   const response = new ResponseClass();
   try {
     const result = await pool.query(
       `UPDATE appointments
-       SET client_id = $1, time_slot_id = $2, service = $3, notes = $4
+       SET client_id = $1, time_slot_id = $2, service = $3, status = $4
        WHERE id = $5 RETURNING *`,
-      [client_id, time_slot_id, service, notes || null, id]
+      [client_id, time_slot_id, service, status, id]
     );
     response.status = true;
     response.code = 200;
