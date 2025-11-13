@@ -17,11 +17,12 @@ router.get('/', async (req, res) => {
 
     // Get day of the week from selected date
     const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    const requestedDayName = dayNames[new Date(date).getDay()];
+    const requestedDayName = dayNames[new Date(date).getDay() + 1];
     console.log('requested day name:', requestedDayName);
 
     // Filter slots by either exact date or recurring day of week
     const filteredSlots = allSlots.data.filter(slot => {
+      console.log("All slots returned from DB:", allSlots.data);
       // Only include available slots
       if (!slot.is_available) return false;
 
