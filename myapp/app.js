@@ -7,6 +7,7 @@ const logger = require('morgan');
 
 const indexRouter = require('../routes/index');
 const availabilityRouter = require('../routes/availability'); // <-- NEW
+const contactsRouter = require('../routes/contacts'); // <-- NEW
 
 const app = express();
 
@@ -36,6 +37,9 @@ app.use('/', indexRouter);
 // NEW: Availability route (Admin page + API)
 app.use('/availability', availabilityRouter);
 // When you hit: http://localhost:3000/availability
+app.use('/contacts', contactsRouter);
+// GET  -> http://localhost:3000/contacts
+// POST -> http://localhost:3000/contacts
 
 
 // ---------------------
