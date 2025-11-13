@@ -31,11 +31,10 @@ try{
   res.status(500).send("Error fetching appointments");
 }
 });
-
+console.log('before post');
 router.post("/availibility", async (req, res) => {
   const barberId = 1; // example, replace with session user if needed
-  console.log(req.body);
-
+  console.log("🧠 Request body:", req.body);
   const response = await postAvailibility(barberId, req.body);
 
   if (!response.status) {
