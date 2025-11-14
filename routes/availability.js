@@ -3,16 +3,15 @@ const express = require("express");
 const router = express.Router();
 
 // Import only availability queries
-const { getAvailibility, postAvailibility } = require("../models/availibility-queries");
+const { getAvailability, postAvailability } = require("../models/availability-queries");
 
 // ----------------------
 // GET — Show availability page
 // ----------------------
 router.get("/", async (req, res) => {
   try {
-    const response = await getAvailibility();
-
-    res.render("availibility", {
+    const response = await getAvailability();
+    res.render("availability", {
       data: response.data,
     });
   } catch (err) {
@@ -30,7 +29,7 @@ router.post("/", async (req, res) => {
   console.log("📥 POST /availability body:", req.body);
 
   try {
-    const response = await postAvailibility(barberId, req.body);
+    const response = await postAvailability(barberId, req.body);
 
     if (!response.status) {
       console.log("⚠️ Availability error:", response.message);
@@ -38,7 +37,7 @@ router.post("/", async (req, res) => {
     }
 
     // Success — reload page
-    res.redirect("/availibility");
+    res.redirect("/availability");
   } catch (err) {
     console.error("❌ Error posting availability:", err);
     res.status(500).send("Error saving availability");

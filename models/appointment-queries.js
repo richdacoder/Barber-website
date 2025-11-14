@@ -13,6 +13,7 @@ class ResponseClass {
 // ---------------------
 // Get all appointments
 // ---------------------
+console.log('befors getappointments')
 const getAppointments = async () => {
   const response = new ResponseClass();
   try {
@@ -25,6 +26,7 @@ const getAppointments = async () => {
        LEFT JOIN time_slots t ON a.time_slot_id = t.id
        ORDER BY a.id ASC`
     );
+    console.log('query RESULTS', results);
     response.status = true;
     response.code = 200;
     response.message = "Success";

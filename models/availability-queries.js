@@ -13,14 +13,14 @@ class ResponseClass {
 // ------------------------------------
 // GET AVAILABILITY
 // ------------------------------------
-const getAvailibility = async () => {
+const getAvailability = async () => {
   const response = new ResponseClass();
 
   try {
     const results = await pool.query(
       `SELECT * FROM time_slots ORDER BY id ASC`
     );
-
+    console.log(results);
     response.status = true;
     response.code = 200;
     response.message = "Success";
@@ -37,7 +37,7 @@ const getAvailibility = async () => {
 // ------------------------------------
 // POST / UPDATE AVAILABILITY
 // ------------------------------------
-const postAvailibility = async (barberId, reqBody) => {
+const postAvailability = async (barberId, reqBody) => {
   const response = new ResponseClass();
 
   try {
@@ -127,6 +127,6 @@ const postAvailibility = async (barberId, reqBody) => {
 };
 
 module.exports = {
-  getAvailibility,
-  postAvailibility
+  getAvailability,
+  postAvailability
 };
