@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="/stylesheets/availibility.css">
-<link rel="stylesheet" href="/stylesheets/copy-hours-availibility.css">
+<link rel="stylesheet" href="/stylesheets/availability.css">
+<link rel="stylesheet" href="/stylesheets/copy-hours-availability.css">
 <div class="availibility-list">
   <div class="availability-container">
     <h2>Weekly Availability</h2>
     <div><%- include('saved-pop-up.ejs') %> </div>
-    <form id="availabilityForm" action="/availibility" method="POST">
+    <form id="availabilityForm" action="/availability" method="POST">
       <% const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; %>
 
       <% days.forEach(day => {
@@ -58,5 +58,5 @@
   </div>
   <div>
     </div>
-    <script src="javascripts/pop-ups/copy-hours-availibility.js"></script>
-     <script src="javascripts/pop-ups/saved-availibility-popup.js"></script>
+    <script src="javascripts/pop-ups/copy-hours-availability.js"></script>
+     <script src="javascripts/pop-ups/saved-availability-popup.js"></script>

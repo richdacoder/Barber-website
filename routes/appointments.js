@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   try {
     const appointmentsResp = await getAppointments();
     const appointment = appointmentsResp.status ? appointmentsResp.data : [];
-    res.render("index", { appointment });
+    res.render("index", { data: appointment });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error loading homepage");
