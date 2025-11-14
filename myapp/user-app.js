@@ -17,7 +17,7 @@ app.use(
 );
 
 // Import routers
-const indexRouter = require('../routes/user-index'); // Main route for /calendar
+const indexRouter = require('../routes/user-availability'); // Main route for /calendar
 
 // View engine setup (if you use EJS for admin or error pages)
 app.set('views', path.join(__dirname, 'views'));
