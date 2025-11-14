@@ -23,7 +23,7 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
     setCheckingClient(true);
 
     try {
-      const res = await axios.post("http://localhost:3001/api/check-client", {
+      const res = await axios.post("http://localhost:3001/clients", {
         first_name: firstName,
         last_name: lastName,
         email,
