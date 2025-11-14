@@ -29,6 +29,7 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
         email,
         phone_number: phone,
       });
+      console.log(res);
 
       if (res.data.exists) {
         setClientExists(true);
