@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../css/CalendarPage.css';
 
-import useFetchSlots from './calendar-components/use-effect'; // ✅ renamed
+import useFetchSlots from './calendar-components/use-effect';
 import TimeSlots from './calendar-components/time-slots';
 import AppointmentForm from './calendar-components/appointment-form';
 
@@ -13,16 +13,20 @@ const CalendarPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedSlotId, setSelectedSlotId] = useState(null);
 
-  // use the custom hook (not JSX)
+  console.log("Selected Slot ID:", selectedSlotId);
+
+  // Fetch slots when date changes
   useFetchSlots({ selectedDate, setLoading, setTimeSlots, setSelectedSlotId });
 
-  // Handle slot selection
-  const handleSelectSlot = (slot) => setSelectedSlotId(slot.id);
+  // Handle slot selection — always pass the numeric slotId
+  const handleSelectSlot = (timeButton) => {
+    console.log("Selected Slot:", timeButton);
+    setSelectedSlotId(timeButton.slotId); // integer
+  };
 
   // Handle form submission
   const handleFormSubmit = (formData) => {
     console.log('Appointment Data:', formData);
-    alert('Appointment form filled! (No backend POST yet)');
     setSelectedSlotId(null);
   };
 

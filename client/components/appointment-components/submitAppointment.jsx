@@ -35,7 +35,7 @@ export const submitAppointment = async ({
     finalClientId = clientRes.data.id;
   }
 
-  await axios.post("http://localhost:3001/api/appointments", {
+  await axios.post("http://localhost:3001/appointments/create", {
     client_id: finalClientId,
     time_slot_id: selectedSlotId,
     service,
