@@ -2,12 +2,15 @@
 const express = require("express");
 const router = express.Router();
 const { checkClientExists, createClient } = require("../models/contacts-queries");
-
+console.log('user contact working');
 // POST /clients — handles both check and create actions
 router.post("/", async (req, res) => {
   const { action, first_name, last_name, email, phone_number, profile_picture } = req.body;
+console.log('inside user contact post', req.body)
+console.log('look right here', action, first_name);
 
   if (!action) return res.status(400).json({ error: "Missing action" });
+  console.log('after user contact post')
 
   try {
     if (action === "check") {

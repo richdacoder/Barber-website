@@ -30,10 +30,19 @@ const checkClientExists = async ({ first_name, last_name, email, phone_number })
   const response = { exists: false, clientId: null };
   try {
     const result = await pool.query(
-      `SELECT id FROM clients WHERE
-       (first_name=$1 AND last_name=$2) AND (email=$3 OR phone_number=$4)`,
-      [first_name, last_name, email, phone_number]
+      `SELECT id FROM clients
+       WHERE first_name ILIKE $1
+         AND last_name ILIKE $2
+         AND (email = $3 OR $3 IS NULL)
+         AND (phone_number = $4 OR $4 IS NULL)`,
+      [
+        first_name,
+        last_name,
+        email || null,       // optional field
+        phone_number || null // optional field
+      ]
     );
+
     if (result.rows.length > 0) {
       response.exists = true;
       response.clientId = result.rows[0].id;

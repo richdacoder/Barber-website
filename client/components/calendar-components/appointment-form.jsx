@@ -24,6 +24,7 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
 
     try {
       const res = await axios.post("http://localhost:3001/clients", {
+        action: "check",
         first_name: firstName,
         last_name: lastName,
         email,
