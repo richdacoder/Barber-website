@@ -20,7 +20,6 @@ const getAvailability = async () => {
     const results = await pool.query(
       `SELECT * FROM time_slots ORDER BY id ASC`
     );
-    console.log(results);
     response.status = true;
     response.code = 200;
     response.message = "Success";

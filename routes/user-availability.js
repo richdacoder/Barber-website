@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { getAvailability } = require('../models/availability-queries');
-console.log('working');
 
 router.get('/', async (req, res) => {
   const { date } = req.query; // e.g., '2025-11-12'
-  console.log('the date', date);
 
   if (!date) return res.status(400).json({ error: 'Missing date parameter' });
 
@@ -17,7 +15,6 @@ router.get('/', async (req, res) => {
     // Get day of the week from selected date
     const dayNames = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     const requestedDayName = dayNames[new Date(date).getDay()];
-    console.log('requested day name:', requestedDayName);
 
     // Filter slots by either exact date or recurring day of week
     const filteredSlots = allSlots.data.filter(slot => {
@@ -34,7 +31,6 @@ router.get('/', async (req, res) => {
       return slot.day_of_week === requestedDayName;
     });
 
-    console.log('filtered slots:', filteredSlots);
 
     res.json(filteredSlots);
   } catch (err) {
