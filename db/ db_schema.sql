@@ -44,3 +44,13 @@ CREATE TABLE barbers (
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
+
+ CREATE TABLE locations (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+CREATE TABLE
