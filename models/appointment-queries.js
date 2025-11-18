@@ -13,7 +13,6 @@ class ResponseClass {
 // ---------------------
 // Get all appointments
 // ---------------------
-console.log('befors getappointments')
 const getAppointments = async () => {
   const response = new ResponseClass();
   try {

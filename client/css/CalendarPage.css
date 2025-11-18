@@ -86,3 +86,37 @@
   font-weight: bold;
   color: #4caf50;
 }
+
+/* Timeslot buttons container */
+.time-slot-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Default timeslot button */
+.time-slot-btn {
+  padding: 10px 16px;
+  margin: 6px;
+  border: 1px solid #4caf50;
+  border-radius: 8px;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Hover effect */
+.time-slot-btn:hover {
+  background: #4caf50;
+  color: white;
+}
+
+/* Highlight selected timeslot */
+.time-slot-btn.selected {
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+  border-color: #388e3c;
+}

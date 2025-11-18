@@ -18,21 +18,25 @@ app.use(
 
 // Import routers
 const indexRouter = require('../routes/user-availability'); // Main route for /calendar
-const contactRouter = require('../routes/user-contacts')
+const contactRouter = require('../routes/user-contacts');
+const appointmentRouter = require('../routes/appointments');
+
 // View engine setup (if you use EJS for admin or error pages)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Middleware
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ API route used by React (e.g. GET /calendar?date=YYYY-MM-DD)
 app.use('/calendar', indexRouter);
-app.use('/clients', contactRouter)
+app.use('/clients', contactRouter);
+app.use('/appointments', appointmentRouter)
+
 // Catch 404
 app.use((req, res, next) => {
   next(createError(404));
