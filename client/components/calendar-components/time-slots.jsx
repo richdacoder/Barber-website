@@ -1,21 +1,20 @@
 import React from "react";
 
-export default function TimeSlots({ loading, timeSlots, selectedSlotId, handleSelectSlot }) {
+export default function TimeSlots({ loading, timeSlots, selectedButtonId, handleSelectButton }) {
 
   const generateTimeButtons = (slot) => {
     const buttons = [];
     const start = new Date(`1970-01-01T${slot.slot_time}`);
     const end = new Date(`1970-01-01T${slot.end_time}`);
-
     const intervalMinutes = 60;
 
     for (let t = new Date(start); t < end; t.setMinutes(t.getMinutes() + intervalMinutes)) {
       const label = t.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
       buttons.push({
-        id: slot.id,     // NOT the unique key anymore
+        buttonId: `${slot.id}-${t.getTime()}`, // UI highlight
         time: label,
-        slotId: slot.id, // REAL slot id for backend and highlight
+        slotId: slot.id // DB only
       });
     }
 
@@ -33,12 +32,12 @@ export default function TimeSlots({ loading, timeSlots, selectedSlotId, handleSe
       ) : (
         <div className="time-slot-list">
           {timeSlots.flatMap((slot) =>
-            generateTimeButtons(slot).map((timeButton, index) => (
+            generateTimeButtons(slot).map((timeButton) => (
               <button
-                key={`${timeButton.slotId}-${index}`}   // unique key
-                onClick={() => handleSelectSlot(timeButton)}
+                key={timeButton.buttonId}
+                onClick={() => handleSelectButton(timeButton)}
                 className={`time-slot-btn ${
-                  selectedSlotId === timeButton.slotId ? "selected" : ""
+                  selectedButtonId === timeButton.buttonId ? "selected" : ""
                 }`}
               >
                 {timeButton.time}

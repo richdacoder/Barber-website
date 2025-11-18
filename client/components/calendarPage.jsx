@@ -11,23 +11,33 @@ const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [timeSlots, setTimeSlots] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // UI highlight
+  const [selectedButtonId, setSelectedButtonId] = useState(null);
+
+  // Database numeric slotId
   const [selectedSlotId, setSelectedSlotId] = useState(null);
 
-  console.log("Selected Slot ID:", selectedSlotId);
-
-  // Fetch slots when date changes
+  // Fetch available slots when date changes
   useFetchSlots({ selectedDate, setLoading, setTimeSlots, setSelectedSlotId });
 
-  // Handle slot selection — always pass the numeric slotId
-  const handleSelectSlot = (timeButton) => {
-    console.log("Selected Slot:", timeButton);
-    setSelectedSlotId(timeButton.slotId); // integer
+  // Handle clicking a timeslot button
+  const handleSelectButton = (timeButton) => {
+    // Highlight clicked button
+    setSelectedButtonId(timeButton.buttonId);
+
+    // Store numeric slotId for database
+    setSelectedSlotId(timeButton.slotId);
   };
 
   // Handle form submission
   const handleFormSubmit = (formData) => {
-    console.log('Appointment Data:', formData);
-    setSelectedSlotId(null);
+    console.log('Form Data:', formData);
+    console.log('Selected numeric slotId for DB:', selectedSlotId);
+
+    // Reset highlight and numeric slot after submission
+    setSelectedSlotId(null);      // DB value
+    setSelectedButtonId(null);    // UI highlight
   };
 
   return (
@@ -50,12 +60,12 @@ const CalendarPage = () => {
       <TimeSlots
         loading={loading}
         timeSlots={timeSlots}
-        selectedSlotId={selectedSlotId}
-        handleSelectSlot={handleSelectSlot}
+        selectedButtonId={selectedButtonId}
+        handleSelectButton={handleSelectButton}
       />
 
       <AppointmentForm
-        selectedSlotId={selectedSlotId}
+        selectedSlotId={selectedSlotId} // numeric for DB
         selectedDate={selectedDate}
         onSubmit={handleFormSubmit}
       />
