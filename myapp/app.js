@@ -6,6 +6,7 @@ const logger = require('morgan');
 const availabilityRouter = require('../routes/availability'); // <-- NEW
 const contactsRouter = require('../routes/contacts');       // <-- NEW
 const appointmentsRouter = require('../routes/appointments'); // <-- NEW
+const serviceRouter = require('../routes/services');
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use('/appointments', appointmentsRouter);
 // PUT  -> http://localhost:3000/appointments/:id
 // DELETE -> http://localhost:3000/appointments/:id
 
+app.use('/services', serviceRouter);
 // ---------------------
 // 404 Handler
 // ---------------------
