@@ -12,9 +12,12 @@ module.exports = {
     },
     migrations: {
       directory: [
+        './migrations/clients',
+        './migrations/barbers',
         './migrations/appointments',
         './migrations/time-slots',
-        './migrations/service-table'
+        './migrations/service-table',
+        './migrations/locations',
       ]
     },
         seeds: {
