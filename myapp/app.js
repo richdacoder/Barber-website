@@ -7,6 +7,7 @@ const availabilityRouter = require('../routes/availability'); // <-- NEW
 const contactsRouter = require('../routes/contacts');       // <-- NEW
 const appointmentsRouter = require('../routes/appointments'); // <-- NEW
 const serviceRouter = require('../routes/services');
+const locationRouter = require('../routes/locations');
 
 const app = express();
 
@@ -45,6 +46,8 @@ app.use('/appointments', appointmentsRouter);
 // DELETE -> http://localhost:3000/appointments/:id
 
 app.use('/services', serviceRouter);
+
+app.use('/locations', locationRouter);
 // ---------------------
 // 404 Handler
 // ---------------------
