@@ -7,48 +7,38 @@ const {
   updateService,
   deleteService
 } = require('../models/service-queries');
+console.log('check here', 'before service api point 1');
 
-// Get all services
-router.get('/', async (req, res) => {
+// API endpoints only
+router.get('/api', async (req, res) => {
+  console.log('check here', ' after service api point 2');
+
   try {
     const services = await getAllServices();
-  res.render('services');
+    const resSer = res.json(services);
+    console.log('services/api', resSer);
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to fetch services' });
   }
 });
 
-// Create a new service
-router.post('/', async (req, res) => {
+router.post('/api', async (req, res) => {
   try {
     const { name } = req.body;
     const service = await createService(name);
-    res.json(service);
+    const serviceJson = res.json(service);
+    // console.log(serviceJson);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to create service' });
   }
 });
 
-// Update service
-router.put('/:id', async (req, res) => {
+router.delete('/api/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name } = req.body;
-    const service = await updateService(id, name);
-    res.json(service);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to update service' });
-  }
-});
-
-// Delete service
-router.delete('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    await deleteService(id);
+    await deleteService(req.params.id);
     res.json({ message: 'Service deleted' });
   } catch (err) {
     console.error(err);

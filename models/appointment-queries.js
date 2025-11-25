@@ -17,7 +17,7 @@ const getAppointments = async () => {
   const response = new ResponseClass();
   try {
     const results = await pool.query(
-      `SELECT a.id, a.client_id, a.time_slot_id, a.service, a.status,
+      `SELECT a.id, a.client_id, a.time_slot_id, a.service_id, a.status,
               c.first_name, c.last_name, c.email, c.phone_number,
               t.slot_time, t.end_time, t.slot_date, t.day_of_week
        FROM appointments a

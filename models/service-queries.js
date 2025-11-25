@@ -3,6 +3,7 @@ const pool = require("../db/db-connection");
 // Get all services
 const getAllServices = async () => {
   const res = await pool.query("SELECT * FROM services ORDER BY id ASC");
+  console.log('service query', res.rows)
   return res.rows;
 };
 
