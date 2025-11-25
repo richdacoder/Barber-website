@@ -1,0 +1,13 @@
+<ul id="service-list">
+  <% services.forEach(service => { %>
+    <li>
+      <%= service.name %>
+      <span class="delete-btn" data-type="service" data-id="<%= service.id %>">✕</span>
+    </li>
+  <% }) %>
+</ul>
+
+<form action="/api/services" method="POST">
+  <input type="text" name="name" placeholder="Add new service" required>
+  <button type="submit">Add Service</button>
+</form>

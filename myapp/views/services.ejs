@@ -1,1 +1,35 @@
-<div>working service</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel = "stylesheet" href ="../stylesheets/style.css"/>
+  <link rel = "stylesheet" href ="../stylesheets/services-locations.css"/>
+  <script src="https://kit.fontawesome.com/cf9a0dc4e8.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <div> <%- include('partials/header') %> </div>
+     </header>
+     <article>
+  <div class="container">
+
+    <h1>Services & Locations</h1>
+    <section>
+      <h2>Services</h2>
+      <div><%- include('partials/services-ejs/services-list') %></div>
+    </section>
+
+    <hr>
+    <section>
+      <h2>Locations</h2>
+      <div> <%- include('partials/services-ejs/locations') %></div>
+    </section>
+  </div>
+
+</article>
+<script src="../javascripts/services-locations.js"></script>
+<script src="../javascripts/navbar.js" ></script>
+</body>
+</html>

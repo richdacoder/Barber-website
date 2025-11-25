@@ -8,6 +8,7 @@ const contactsRouter = require('../routes/contacts');       // <-- NEW
 const appointmentsRouter = require('../routes/appointments'); // <-- NEW
 const serviceRouter = require('../routes/services');
 const locationRouter = require('../routes/locations');
+const adminRouter = require('../routes/service-page');
 
 const app = express();
 
@@ -31,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // ---------------------
 // Routes
 // --------------------
-app.use('/', appointmentsRouter);                   // Homepage
+app.use('/', appointmentsRouter);
 // NEW: Availability route (Admin page + API)
 app.use('/availability', availabilityRouter);
 
@@ -48,6 +49,10 @@ app.use('/appointments', appointmentsRouter);
 app.use('/services', serviceRouter);
 
 app.use('/locations', locationRouter);
+
+app.use('/admin', adminRouter);
+
+
 // ---------------------
 // 404 Handler
 // ---------------------

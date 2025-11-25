@@ -1,0 +1,13 @@
+<ul id="location-list">
+  <% locations.forEach(location => { %>
+    <li>
+      <%= location.location_name %>
+      <span class="delete-btn" data-type="location" data-id="<%= location.id %>">✕</span>
+    </li>
+  <% }) %>
+</ul>
+
+<form action="/api/locations" method="POST">
+  <input type="text" name="location_name" placeholder="Add new location" required>
+  <button type="submit">Add Location</button>
+</form>
