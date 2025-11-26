@@ -8,7 +8,7 @@ const {
   deleteLocation
 } = require('../models/location-queries');
 
-console.log('check here', '1 point');
+console.log('check here', 'location connected to user');
 
 // API endpoints only
 router.get('/api', async (req, res) => {
