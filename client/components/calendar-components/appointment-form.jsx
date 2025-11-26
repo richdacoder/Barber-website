@@ -1,17 +1,30 @@
 import { useState } from "react";
 import { useLiveClientLookup } from "../appointment-components/useLiveClientLookup";
-import { ProfilePictureInput } from "../appointment-components/ProfilePictureInput";
 import { submitAppointment } from "../appointment-components/submitAppointment";
+import { ClientInfo } from "../appointment-components/ClientInfo";
+import { AppointmentDetails } from "../appointment-components/AppointmentDetails";
+import { useServicesAndLocations } from "../appointment-components/useServicesAndLocations";
 
 const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
+  // Client state
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [service, setService] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
 
-  const { clientExists, clientId, profilePicture, checkingClient, setProfilePicture } =
-    useLiveClientLookup({ firstName, lastName, email, phone });
+  // Appointment state
+  const [serviceId, setServiceId] = useState("");
+  const [locationId, setLocationId] = useState(null);
+  const [customAddress, setCustomAddress] = useState("");
+  const [customDescription, setCustomDescription] = useState("");
+  const [appointmentType, setAppointmentType] = useState("in-shop");
+
+  // Client lookup
+  const { clientExists, clientId, checkingClient } = useLiveClientLookup({ firstName, lastName, email, phone });
+
+  // Services & Locations from custom hook
+  const { services, locations, loading } = useServicesAndLocations();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,68 +38,47 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
         clientExists,
         clientId,
         selectedSlotId,
-        service,
-        selectedDate,
+        serviceId,
+        locationId,
+        customAddress,
+        customDescription,
+        appointmentType,
         onSubmit,
       });
 
       alert("✅ Appointment booked successfully!");
 
       // Reset form
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPhone("");
-      setService("");
-      setProfilePicture("");
+      setFirstName(""); setLastName(""); setEmail(""); setPhone("");
+      setProfilePicture(""); setServiceId(""); setLocationId(null);
+      setCustomAddress(""); setCustomDescription(""); setAppointmentType("in-shop");
+
     } catch (err) {
       alert(err.message || "Failed to create appointment.");
     }
   };
 
+  if (loading) return <p>Loading services and locations...</p>;
+
   return (
     <div className="appointment-form">
       <h3>Book Appointment</h3>
       <form onSubmit={handleSubmit}>
-        <div className="form-section">
-          <h4>Client Information</h4>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First Name"
-          />
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last Name"
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-          <input
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone Number"
-          />
+        <ClientInfo
+          firstName={firstName} setFirstName={setFirstName}
+          lastName={lastName} setLastName={setLastName}
+          email={email} setEmail={setEmail}
+          phone={phone} setPhone={setPhone}
+          profilePicture={profilePicture} setProfilePicture={setProfilePicture}
+        />
 
-          <ProfilePictureInput profilePicture={profilePicture} setProfilePicture={setProfilePicture} />
-        </div>
-
-        <div className="form-section">
-          <h4>Appointment Details</h4>
-          <input
-            type="text"
-            value={service}
-            onChange={(e) => setService(e.target.value)}
-            placeholder="Service (e.g., Haircut)"
-          />
-        </div>
+        <AppointmentDetails
+          serviceId={serviceId} setServiceId={setServiceId} services={services}
+          locationId={locationId} setLocationId={setLocationId} locations={locations}
+          customAddress={customAddress} setCustomAddress={setCustomAddress}
+          customDescription={customDescription} setCustomDescription={setCustomDescription}
+          appointmentType={appointmentType} setAppointmentType={setAppointmentType}
+        />
 
         <button type="submit" className="submit-btn" disabled={checkingClient}>
           {checkingClient ? "Checking client..." : "Confirm Appointment"}

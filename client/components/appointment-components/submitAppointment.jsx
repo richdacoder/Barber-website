@@ -8,19 +8,25 @@ export const submitAppointment = async ({
   profilePicture,
   clientExists,
   clientId,
-  selectedSlotId,
-  service,
-  selectedDate,
+  selectedSlotId,       // maps to time_slot_id
+  serviceId,            // maps to service_id
+  locationId,           // maps to location_id (optional)
+  customAddress,        // maps to custom_address
+  customDescription,    // maps to custom_description
+  appointmentType,      // "mobile" or "in-shop"
   onSubmit,
 }) => {
+
+  // Required fields based on schema
   if (!selectedSlotId) throw new Error("Please select a time slot.");
-  if (!service) throw new Error("Please select a service.");
+  if (!serviceId) throw new Error("Please select a service.");
 
   let finalClientId = clientId;
 
+  // Create client if needed
   if (!clientExists) {
     if (!firstName || !lastName || !email || !phone) {
-      throw new Error("Please fill all client fields to create a new client.");
+      throw new Error("Please fill all client fields.");
     }
 
     const clientRes = await axios.post("http://localhost:3001/clients", {
@@ -35,11 +41,15 @@ export const submitAppointment = async ({
     finalClientId = clientRes.data.id;
   }
 
+  // Create appointment
   await axios.post("http://localhost:3001/appointments/create", {
     client_id: finalClientId,
     time_slot_id: selectedSlotId,
-    service,
-    date: selectedDate.toISOString().split("T")[0],
+    service_id: serviceId,
+    location_id: locationId || null,  // can be null
+    custom_address: customAddress || null,
+    custom_description: customDescription || null,
+    appointment_type: appointmentType || "in-shop",  // default
   });
 
   onSubmit?.();
