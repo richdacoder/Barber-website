@@ -20,6 +20,7 @@ app.use(
 const indexRouter = require('../routes/user-availability'); // Main route for /calendar
 const contactRouter = require('../routes/user-contacts');
 const appointmentRouter = require('../routes/appointments');
+const serviceRouter = require('../routes/services')
 
 // View engine setup (if you use EJS for admin or error pages)
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ✅ API route used by React (e.g. GET /calendar?date=YYYY-MM-DD)
 app.use('/calendar', indexRouter);
 app.use('/clients', contactRouter);
-app.use('/appointments', appointmentRouter)
+app.use('/appointments', appointmentRouter);
+app.use('/services', serviceRouter);
 
 // Catch 404
 app.use((req, res, next) => {
