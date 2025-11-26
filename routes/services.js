@@ -15,9 +15,7 @@ router.get('/api', async (req, res) => {
 
   try {
     const services = await getAllServices();
-    const resSer = res.json(services);
-    console.log('services/api', resSer);
-
+    res.json(services);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to fetch services' });

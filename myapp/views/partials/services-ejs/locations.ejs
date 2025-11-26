@@ -1,13 +1,13 @@
+<input id="new-location-name" type="text" placeholder="Add new location">
+<button id="add-location-btn">Add Location</button>
+
 <ul id="location-list">
   <% locations.forEach(location => { %>
     <li>
-      <%= location.location_name %>
+      <%= location.address %>
       <span class="delete-btn" data-type="location" data-id="<%= location.id %>">✕</span>
     </li>
   <% }) %>
 </ul>
 
-<form action="/api/locations" method="POST">
-  <input type="text" name="location_name" placeholder="Add new location" required>
-  <button type="submit">Add Location</button>
-</form>
+<script src="/javascripts/locations-services/add-locations.js"></script>
