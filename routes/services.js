@@ -7,11 +7,11 @@ const {
   updateService,
   deleteService
 } = require('../models/service-queries');
-console.log('check here', 'before service api point 1');
+console.log('check here', 'before service with user');
 
 // API endpoints only
 router.get('/api', async (req, res) => {
-  console.log('check here', ' after service api point 2');
+  console.log('check here', ' service connected to user');
 
   try {
     const services = await getAllServices();
