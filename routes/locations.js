@@ -24,9 +24,10 @@ router.get('/api', async (req, res) => {
 
 router.post('/api', async (req, res) => {
   try {
-    const { address, type, description } = req.body;
-    const location = await createLocation(address, type, description);
-    res.json(location);
+    const { address } = req.body;
+    const location = await createLocation(address);
+    const loc = res.json(location);
+    console.log(loc);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to create location' });
