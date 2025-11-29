@@ -48,6 +48,20 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
 
       alert("✅ Appointment booked successfully!");
 
+       // ⭐ NEW — Redirect user to confirmation page
+       const query = new URLSearchParams({
+        name: `${firstName} ${lastName}`,
+        email,
+        phone,
+        serviceId,
+        locationId,
+        appointmentType,
+        slotId: selectedSlotId,
+        date: selectedDate.toString(),
+      }).toString();
+
+      window.location.href = `/confirmation?${query}`; // ⭐ NEW
+
       // Reset form
       setFirstName(""); setLastName(""); setEmail(""); setPhone("");
       setProfilePicture(""); setServiceId(""); setLocationId(null);
