@@ -1,7 +1,7 @@
-// routes/clients.js
 const express = require("express");
 const router = express.Router();
 const { checkClientExists, createClient } = require("../models/contacts-queries");
+
 // POST /clients — handles both check and create actions
 router.post("/", async (req, res) => {
   const { action, first_name, last_name, email, phone_number, profile_picture } = req.body;
@@ -18,8 +18,13 @@ router.post("/", async (req, res) => {
     if (action === "create") {
       // ✅ First check if client already exists to avoid UNIQUE violation
       const existing = await checkClientExists({ first_name, last_name, email, phone_number });
+
+      // ⭐ NEW: If client already exists, return existing client ID
       if (existing.exists) {
-        return res.status(400).json({ error: "Client already exists", id: existing.clientId });
+        return res.json({
+          id: existing.clientId,
+          message: "Existing client found"
+        });
       }
 
       // Create new client
