@@ -24,7 +24,9 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const response = await createAppointment(req.body);
+    const reqBod = req.body
     res.json(response);
+    console.log('selected date', reqBod, reqBod.selectedDate);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Database error creating appointment" });

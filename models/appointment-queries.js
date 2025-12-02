@@ -70,6 +70,7 @@ const createAppointment = async ({
       ]
     );
 
+
     response.status = true;
     response.code = 201;
     response.message = "Appointment created";

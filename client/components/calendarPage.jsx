@@ -12,6 +12,7 @@ const CalendarPage = () => {
   const [timeSlots, setTimeSlots] = useState([]);
   const [loading, setLoading] = useState(false);
 
+console.log('calendar pagae date', selectedDate);
   // UI highlight
   const [selectedButtonId, setSelectedButtonId] = useState(null);
 
@@ -59,6 +60,7 @@ const CalendarPage = () => {
 
       <TimeSlots
         loading={loading}
+        selectedDate={selectedDate}
         timeSlots={timeSlots}
         selectedButtonId={selectedButtonId}
         handleSelectButton={handleSelectButton}
