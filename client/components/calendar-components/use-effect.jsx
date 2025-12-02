@@ -5,7 +5,7 @@ import axios from "axios";
 export default function useFetchSlots({ selectedDate, setLoading, setTimeSlots, setSelectedSlotId }) {
   useEffect(() => {
     if (!selectedDate) return;
-
+console.log('use effect page', selectedDate)
     const fetchSlots = async () => {
       setLoading(true);
       const formattedDate = selectedDate.toISOString().split("T")[0];

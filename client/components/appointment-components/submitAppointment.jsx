@@ -8,6 +8,7 @@ export const submitAppointment = async ({
   profilePicture,
   clientExists,
   clientId,
+  selectedDate,
   selectedSlotId,       // maps to time_slot_id
   serviceId,            // maps to service_id
   locationId,           // maps to location_id (optional)
@@ -40,7 +41,7 @@ export const submitAppointment = async ({
 
     finalClientId = clientRes.data.id;
   }
-
+console.log('submit select', selectedDate);
   // Create appointment
   await axios.post("http://localhost:3001/appointments/create", {
     client_id: finalClientId,
@@ -50,7 +51,9 @@ export const submitAppointment = async ({
     custom_address: customAddress || null,
     custom_description: customDescription || null,
     appointment_type: appointmentType || "in-shop",  // default
+    selectedDate: selectedDate.toString(),
   });
+  console.log('after submit select', selectedDate);
 
   onSubmit?.();
 };

@@ -20,11 +20,13 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
   const [customDescription, setCustomDescription] = useState("");
   const [appointmentType, setAppointmentType] = useState("in-shop");
 
+
   // Client lookup
   const { clientExists, clientId, checkingClient } = useLiveClientLookup({ firstName, lastName, email, phone });
 
   // Services & Locations from custom hook
   const { services, locations, loading } = useServicesAndLocations();
+  console.log('2 before submit', selectedDate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +40,7 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
         clientExists,
         clientId,
         selectedSlotId,
+        selectedDate,
         serviceId,
         locationId,
         customAddress,
@@ -45,6 +48,7 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
         appointmentType,
         onSubmit,
       });
+      console.log('2nd', selectedDate.toISOString().split("T")[0]);
 
       alert("✅ Appointment booked successfully!");
 
@@ -57,8 +61,10 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
         locationId,
         appointmentType,
         slotId: selectedSlotId,
-        date: selectedDate.toString(),
+        date: selectedDate.toISOString().split("T")[0],
       }).toString();
+
+      console.log('3rd', selectedDate);
 
       window.location.href = `/confirmation?${query}`; // ⭐ NEW
 
@@ -71,6 +77,7 @@ const AppointmentForm = ({ selectedSlotId, selectedDate, onSubmit }) => {
       alert(err.message || "Failed to create appointment.");
     }
   };
+  console.log('3 pass submit', selectedDate);
 
   if (loading) return <p>Loading services and locations...</p>;
 
