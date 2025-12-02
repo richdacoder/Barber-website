@@ -1,23 +1,45 @@
 import React from "react";
 
-export default function TimeSlots({ loading, timeSlots, selectedButtonId, handleSelectButton }) {
+export default function TimeSlots({
+  loading,
+  timeSlots,
+  selectedButtonId,
+  handleSelectButton,
+  selectedDate,
+  bookedTimeSlots = [] // array of booked realDateTime strings or time_slot_ids for that day
+}) {
 
   const generateTimeButtons = (slot) => {
     const buttons = [];
-    const start = new Date(`1970-01-01T${slot.slot_time}`);
-    const end = new Date(`1970-01-01T${slot.end_time}`);
     const intervalMinutes = 60;
 
-    for (let t = new Date(start); t < end; t.setMinutes(t.getMinutes() + intervalMinutes)) {
-      const label = t.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    // Loop through hours in the slot
+    const [startHour, startMinute] = slot.slot_time.split(":").map(Number);
+    const [endHour, endMinute] = slot.end_time.split(":").map(Number);
 
-      buttons.push({
-        buttonId: `${slot.id}-${t.getTime()}`, // UI highlight
-        time: label,
-        slotId: slot.id // DB only
-      });
+    let currentTime = new Date(selectedDate);
+    currentTime.setHours(startHour, startMinute, 0, 0);
+
+    const endTime = new Date(selectedDate);
+    endTime.setHours(endHour, endMinute, 0, 0);
+
+    while (currentTime < endTime) {
+      const realDateTimeISO = currentTime.toISOString();
+
+      // Skip if this slot is booked
+      if (!bookedTimeSlots.includes(slot.id) && !bookedTimeSlots.includes(realDateTimeISO)) {
+        buttons.push({
+          buttonId: `${slot.id}-${realDateTimeISO}`,
+          time: currentTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          slotId: slot.id,
+          realDateTime: realDateTimeISO
+        });
+      }
+
+      // increment by interval
+      currentTime = new Date(currentTime.getTime() + intervalMinutes * 60000);
     }
-
+console.log('select button IDs', selectedButtonId);
     return buttons;
   };
 
